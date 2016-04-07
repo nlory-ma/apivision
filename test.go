@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"net/http"
+//	"net/http"
 	"path/filepath"
 
 	"golang.org/x/net/context"
@@ -17,15 +17,15 @@ import (
 
 
 
-func init(){
-	http.HandleFunc("/", httpserver)
-	http.ListenAndServe(":4000", nil)
-}
+//func init(){
+//	http.HandleFunc("/", httpserver)
+//	http.ListenAndServe(":4000", nil)
+//}
 
-func httpserver(writer http.ResponseWriter, request *http.Request){
+//func httpserver(writer http.ResponseWriter, request *http.Request){
 
-	http.ServeFile(writer, request, "static/" + request.URL.Path)
-}
+//	http.ServeFile(writer, request, "static/" + request.URL.Path)
+//}
 
 
 // run submits a label request on a single image by given file.
@@ -79,7 +79,7 @@ func run(file string) error {
 	// Parse les annotations de requetes
 	if annotations := res.Responses[0].LabelAnnotations; len(annotations) > 0 {
 		label := annotations[0].Description
-		fmt.Printf("Found label: %s for %s\n", label, file)
+		fmt.Printf("{ annotation :%s }\n", label)
 		return nil
 	}
 	fmt.Printf("Not found label: %s\n", file)
