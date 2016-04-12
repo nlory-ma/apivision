@@ -1,5 +1,5 @@
 package pigeon_phoenix
-package main
+/*package main
 
 import (
 	"encoding/base64"
@@ -9,31 +9,59 @@ import (
 	"os"
 	"net/http"
 	"path/filepath"
-
+	"github.com/julienschmidt/httprouter"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/vision/v1"
 )
 
 
+type ImageJson struct {
+
+	Nom	[]string `json:"nom"`
+	Date 	[]string `json:"date"`
+	base64 []string `json:"base64"`
+
+}
+
+
+
+
 func init() {
-    http.HandleFunc("/", static)
-    http.HandleFunc("/api/appengine", requeteApi)
+    http.HandleFunc("/", HandleApi)
+    http.HandleFunc("/api/appengine", ApiPost)
 }
 
 func static(w http.ResponseWriter, r *http.Request) {
     http.ServeFile(w, r, "client/"+r.URL.Path)
 }
 
-func requeteApi(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-		case "POST" :
-			fmt.Fprint(w, "post ok")
-		case "GET" :
-			executeApi()
-	}
-}
+func HandleApi(w http.ResponseWriter, r *http.Request) {
 
+	//instacie une nouvelle route
+	Img = {
+
+		Date:"12.1.2016"
+		Nom: "chat.jpg"
+		base64: "lfsoiheojkkreg9gh88yj9t85n5555f99e9t88555g5gg5fmpg56gkjhid9g5f5eke98"
+
+	}
+
+
+	router:= httprouter.New()
+	switch req.Method {
+		case "GET" :
+			{
+				router.GET("/api{image} ou  /https://pigeon-phoenix.appspot.com/", p httprouter.Params)
+				var fichier = p.Byname("image")
+				executeApi(fichier);
+			}
+		case "POST" :
+		{
+			var label = annotation.Vision;
+			router.POST("/api/appengine", p httprouter.Params)
+		}
+}
 
 
 
@@ -45,7 +73,8 @@ func requeteApi(w http.ResponseWriter, r *http.Request) {
 //func httpserver(writer http.ResponseWriter, request *http.Request){
 
 //	http.ServeFile(writer, request, "static/" + request.URL.Path)
-//}
+//}:wq
+
 
 
 // run submits a label request on a single image by given file.
@@ -106,7 +135,6 @@ func executeApi(file string) error {
 	return nil
 }
 
-/*
 
 func main() {
 	flag.Usage = func() {
@@ -120,12 +148,27 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err := run(args[0]); err != nil {
+	if err := executeApi(args[0]); err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err.Error())
 		os.Exit(1)
 	}
 }*/
 
 
+
+
+
+
+import (
+    "net/http"
+)
+
+func init() {
+    http.HandleFunc("/", static)
+}
+
+func static(w http.ResponseWriter, r *http.Request) {
+    http.ServeFile(w, r, "client/"+r.URL.Path)
+}
 
 

@@ -36,6 +36,30 @@ $(document).ready(function() {
 
 	$('#snap').on("click", function() {
 		ctx.drawImage(video, 0, 0, canvasWidth, canvasHeight);
+
+////////////////// Copie du fichier d'image
+
+	/*	var fs = require("fs");
+		
+		var contenu = fs.readFileSync(image/jpg, "UTF-8");
+		fs.writeFileSync("ImageJpg.json", contenu, "UTF-8");
+
+	*/
+
+
+// //////////////////////////////////////////////////////////////
+
+
+
+/***
+****
+**/
+		
+
+
+
+
+
 		var imgBase64 = canvas.get(0).toDataURL('image/jpeg', 1);
 		var dateNow = Date.now();
 		//console.log(dataURL);
@@ -44,7 +68,22 @@ $(document).ready(function() {
 			'date' : Date(dateNow),
 			'img' : imgBase64
 		};
+
+
+		var textFile = "./imageJpg.json";
+		var file = new File(textFile, "write");
+		var str = JSON.stringfy(myData);
+		file.open();
+		file.writeline(str);
+		file.close();
+
+
+/*
+***
+*/
 		// console.log(myData);
+		
+
 
 		$.post('/api/appengine', myData) 
 			.done(function() {
